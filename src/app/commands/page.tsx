@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -245,12 +245,12 @@ export default function CommandsPage() {
     navigator.clipboard.writeText(`/${commandName}`);
     // Optional: Add a toast notification here if desired
   };  // Reset category to 'all' when searching to show all matching results
-  const handleSearchChange = (value: string) => {
+  const handleSearchChange = useCallback((value: string) => {
     setSearchTerm(value);
     if (value && selectedCategory !== 'all') {
       setSelectedCategory('all');
     }
-  };
+  }, [selectedCategory]);
 
   // Keyboard shortcuts for search
   useEffect(() => {
@@ -267,11 +267,9 @@ export default function CommandsPage() {
       if (e.key === 'Escape' && searchTerm) {
         handleSearchChange('');
       }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
+    };    document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [searchTerm]);
+  }, [searchTerm, handleSearchChange]);
 
   // Fade-in animation for command cards
   useEffect(() => {
