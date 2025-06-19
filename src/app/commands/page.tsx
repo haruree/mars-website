@@ -244,8 +244,7 @@ export default function CommandsPage() {
   const copyCommand = (commandName: string) => {
     navigator.clipboard.writeText(`/${commandName}`);
     // Optional: Add a toast notification here if desired
-  };
-  // Reset category to 'all' when searching to show all matching results
+  };  // Reset category to 'all' when searching to show all matching results
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
     if (value && selectedCategory !== 'all') {
