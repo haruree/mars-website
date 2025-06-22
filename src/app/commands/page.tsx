@@ -541,7 +541,6 @@ export default function CommandsPage() {
       setSelectedCategory('all');
     }
   }, [selectedCategory]);
-
   // Keyboard shortcuts for search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -557,8 +556,7 @@ export default function CommandsPage() {
       if (e.key === 'Escape' && searchTerm) {
         handleSearchChange('');
       }
-    };    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    };    document.addEventListener('keydown', handleKeyDown);    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [searchTerm, handleSearchChange]);
 
   // Fade-in animation for command cards
@@ -608,10 +606,9 @@ export default function CommandsPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--dreamy-primary)' }}>
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.3-4.3"></path>
-                  </svg>
-                  <input
+                  </svg>                  <input
                     type="text"
-                    placeholder="Search commands... (Ctrl+K)"
+                    placeholder="Search commands..."
                     value={searchTerm}
                     onChange={(e) => handleSearchChange(e.target.value)}
                     className={styles.searchInput}
