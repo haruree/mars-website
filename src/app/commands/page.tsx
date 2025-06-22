@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -104,6 +104,22 @@ const commands: Command[] = [
     category: 'economy',
     emoji: '👤'
   },
+  {
+    name: 'coinflip',
+    description: 'Flip a coin and bet dream dust! Choose heads or tails~',
+    arguments: ['choice', 'amount'],
+    permissions: ['none'],
+    category: 'economy',
+    emoji: '🪙'
+  },
+  {
+    name: 'leaderboard',
+    description: 'See who has the most dream dust~',
+    arguments: ['none'],
+    permissions: ['none'],
+    category: 'economy',
+    emoji: '🏆'
+  },
   
   // Utility Commands
   {
@@ -111,21 +127,32 @@ const commands: Command[] = [
     description: 'Check my response time~',
     arguments: ['none'],
     permissions: ['none'],
-    category: 'utility'
+    category: 'utility',
+    emoji: '🏓'
   },
   {
     name: 'weather',
     description: 'Get weather for any location~',
     arguments: ['location'],
     permissions: ['none'],
-    category: 'utility'
+    category: 'utility',
+    emoji: '🌤️'
   },
   {
     name: 'poll',
     description: 'Create a beautiful poll~',
     arguments: ['question', 'options'],
     permissions: ['none'],
-    category: 'utility'
+    category: 'utility',
+    emoji: '📊'
+  },
+  {
+    name: 'help',
+    description: 'Get help with using Mars~',
+    arguments: ['command (optional)'],
+    permissions: ['none'],
+    category: 'utility',
+    emoji: '❓'
   },
   
   // Moderation Commands
@@ -134,7 +161,194 @@ const commands: Command[] = [
     description: 'Delete multiple messages~',
     arguments: ['amount'],
     permissions: ['Manage Messages'],
-    category: 'moderation'
+    category: 'moderation',
+    emoji: '🗑️'
+  },
+  {
+    name: 'channel',
+    description: 'Manage channels in the server~',
+    arguments: ['action', 'name', 'options'],
+    permissions: ['Manage Channels'],
+    category: 'moderation',
+    emoji: '📝'
+  },
+  
+  // Roleplay Commands
+  {
+    name: 'hug',
+    description: 'Give someone a warm hug~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🤗'
+  },
+  {
+    name: 'kiss',
+    description: 'Give someone a sweet kiss~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '💋'
+  },
+  {
+    name: 'pat',
+    description: 'Give someone gentle head pats~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👋'
+  },
+  {
+    name: 'cuddle',
+    description: 'Cuddle with someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🥰'
+  },
+  {
+    name: 'bite',
+    description: 'Playfully bite someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🦷'
+  },
+  {
+    name: 'boop',
+    description: 'Boop someone\'s nose~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👆'
+  },
+  {
+    name: 'poke',
+    description: 'Poke someone gently~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👉'
+  },
+  {
+    name: 'wave',
+    description: 'Wave at someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👋'
+  },
+  {
+    name: 'highfive',
+    description: 'Give someone a high five~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🙏'
+  },
+  {
+    name: 'handholding',
+    description: 'Hold hands with someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🤝'
+  },
+  {
+    name: 'snuggle',
+    description: 'Snuggle with someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🤗'
+  },
+  {
+    name: 'tickle',
+    description: 'Tickle someone playfully~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '😆'
+  },
+  {
+    name: 'stare',
+    description: 'Stare at someone intensely~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👀'
+  },
+  {
+    name: 'greet',
+    description: 'Greet someone warmly~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '😊'
+  },
+  {
+    name: 'hold',
+    description: 'Hold someone close~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🤲'
+  },
+  {
+    name: 'lick',
+    description: 'Lick someone playfully~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👅'
+  },
+  {
+    name: 'nom',
+    description: 'Nom on someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '😋'
+  },
+  {
+    name: 'pats',
+    description: 'Give someone multiple pats~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '🤚'
+  },
+  {
+    name: 'punch',
+    description: 'Playfully punch someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '👊'
+  },
+  {
+    name: 'slap',
+    description: 'Slap someone playfully~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '✋'
+  },
+  {
+    name: 'bully',
+    description: 'Playfully bully someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '😈'
+  },
+  {
+    name: 'kill',
+    description: 'Playfully eliminate someone~',
+    arguments: ['target'],
+    permissions: ['none'],
+    category: 'roleplay',
+    emoji: '💀'
   }
 ];
 
@@ -181,6 +395,16 @@ const categories: Category[] = [
     count: commands.filter(cmd => cmd.category === 'moderation').length
   },
   { 
+    id: 'roleplay', 
+    name: 'Roleplay', 
+    icon: (
+      <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12,20.043a.977.977,0,0,1-.7-.288L4.63,13.08A5.343,5.343,0,0,1,6.053,4.513,5.266,5.266,0,0,1,12,5.371a5.272,5.272,0,0,1,5.947-.858A5.343,5.343,0,0,1,19.37,13.08l-6.676,6.675A.977.977,0,0,1,12,20.043ZM8.355,4.963A4.015,4.015,0,0,0,6.511,5.4,4.4,4.4,0,0,0,4.122,8.643a4.345,4.345,0,0,0,1.215,3.73l6.675,6.675,6.651-6.675a4.345,4.345,0,0,0,1.215-3.73A4.4,4.4,0,0,0,17.489,5.4a4.338,4.338,0,0,0-4.968.852h0a.744.744,0,0,1-1.042,0A4.474,4.474,0,0,0,8.355,4.963Z"/>
+      </svg>
+    ),
+    count: commands.filter(cmd => cmd.category === 'roleplay').length
+  },
+  { 
     id: 'music', 
     name: 'Music', 
     icon: (
@@ -195,7 +419,7 @@ const categories: Category[] = [
     name: 'Fun', 
     icon: (
       <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12,20.043a.977.977,0,0,1-.7-.288L4.63,13.08A5.343,5.343,0,0,1,6.053,4.513,5.266,5.266,0,0,1,12,5.371a5.272,5.272,0,0,1,5.947-.858A5.343,5.343,0,0,1,19.37,13.08l-6.676,6.675A.977.977,0,0,1,12,20.043ZM8.355,4.963A4.015,4.015,0,0,0,6.511,5.4,4.4,4.4,0,0,0,4.122,8.643a4.345,4.345,0,0,0,1.215,3.73l6.675,6.675,6.651-6.675a4.345,4.345,0,0,0,1.215-3.73A4.4,4.4,0,0,0,17.489,5.4a4.338,4.338,0,0,0-4.968.852h0a.744.744,0,0,1-1.042,0A4.474,4.474,0,0,0,8.355,4.963Z"/>
+        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V7H1V9H3V15H1V17H3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V17H23V15H21V9H23ZM15 3L19 7H15V3Z"/>
       </svg>
     ),
     count: 0
@@ -203,8 +427,8 @@ const categories: Category[] = [
 ];
 
 export default function CommandsPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');  const [searchTerm, setSearchTerm] = useState('');
+  const filterTabsRef = useRef<HTMLDivElement>(null);
   
   const filteredCommands = commands.filter(command => {
     const matchesCategory = selectedCategory === 'all' || command.category === selectedCategory;
@@ -240,11 +464,77 @@ export default function CommandsPage() {
           )
         ).length
   }));
-  
-  const copyCommand = (commandName: string) => {
+    const copyCommand = (commandName: string) => {
     navigator.clipboard.writeText(`/${commandName}`);
     // Optional: Add a toast notification here if desired
-  };  // Reset category to 'all' when searching to show all matching results
+  };  // Drag scrolling for filter tabs
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollStartRef = useRef(0);
+  const hasMovedRef = useRef(false);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!filterTabsRef.current) return;
+    
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+    startXRef.current = e.pageX - filterTabsRef.current.offsetLeft;
+    scrollStartRef.current = filterTabsRef.current.scrollLeft;
+    filterTabsRef.current.classList.add('dragging');
+    
+    // Prevent text selection while dragging
+    e.preventDefault();
+  }, []);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!isDraggingRef.current || !filterTabsRef.current) return;
+    
+    e.preventDefault();
+    hasMovedRef.current = true;
+    const x = e.pageX - filterTabsRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 2; // Adjust scroll speed
+    filterTabsRef.current.scrollLeft = scrollStartRef.current - walk;
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    if (!filterTabsRef.current) return;
+    
+    isDraggingRef.current = false;
+    filterTabsRef.current.classList.remove('dragging');
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!filterTabsRef.current) return;
+    
+    isDraggingRef.current = false;
+    filterTabsRef.current.classList.remove('dragging');
+  }, []);
+
+  const handleTabClick = useCallback((categoryId: string, e: React.MouseEvent) => {
+    // Prevent tab selection if we were dragging
+    if (hasMovedRef.current) {
+      e.preventDefault();
+      return;
+    }
+    setSelectedCategory(categoryId);
+  }, []);
+
+  // Setup drag scrolling event listeners
+  useEffect(() => {
+    const container = filterTabsRef.current;
+    if (!container) return;
+
+    // Add event listeners for drag scrolling
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [handleMouseMove, handleMouseUp]);
+
+  // Reset category to 'all' when searching to show all matching results
   const handleSearchChange = useCallback((value: string) => {
     setSearchTerm(value);
     if (value && selectedCategory !== 'all') {
@@ -295,13 +585,12 @@ export default function CommandsPage() {
       });
     };
   }, [filteredCommands]);
-
   return (
-    <>
+    <div className={styles.commandsPage}>
       <AnimatedBackground />
       <Header />
 
-      <hr className="divider" />      <div className="container">
+      <div className={styles.container}>
         <main className={styles.mainContent}>
           <div className={styles.pageHeader}>
             <div className={styles.pageTitle}>
@@ -335,24 +624,30 @@ export default function CommandsPage() {
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="m18 6-12 12M6 6l12 12"></path>
                       </svg>
-                    </button>
-                  )}
+                    </button>                  )}
                 </div>
               </div>
             </div>
           </div>          <div className={styles.filterContainer}>
-            <div className={styles.filterTabs}>
-              {updatedCategories.map(category => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`${styles.filterTab} ${selectedCategory === category.id ? styles.active : ''}`}
+            <div className={styles.filterTabsWrapper}>
+              <div className={styles.filterTabsContainer}>
+                <div 
+                  className={styles.filterTabs}
+                  ref={filterTabsRef}
+                  onMouseDown={handleMouseDown}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {category.icon}
-                  <span>{category.name}</span>
-                  <div className={styles.filterCount}>{category.count}</div>
-                </button>
-              ))}
+                  {updatedCategories.map(category => (                    <button
+                      key={category.id}
+                      onClick={(e) => handleTabClick(category.id, e)}
+                      className={`${styles.filterTab} ${selectedCategory === category.id ? styles.active : ''}`}
+                    >
+                      {category.icon}                      <span>{category.name}</span>
+                      <div className={styles.filterCount}>{category.count}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -396,18 +691,17 @@ export default function CommandsPage() {
                 </div>
               </div>
             ))}
-          </div>
-
-          {filteredCommands.length === 0 && (
+          </div>          {filteredCommands.length === 0 && (
             <div className={styles.noResults}>
               <div className={styles.noResultsEmoji}>🔍</div>
               <h3 className={styles.noResultsTitle}>No commands found</h3>
               <p className={styles.noResultsText}>Try adjusting your search or filter criteria</p>
             </div>
-          )}        </main>
+          )}
+        </main>
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 }

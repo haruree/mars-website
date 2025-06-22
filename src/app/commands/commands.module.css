@@ -1,18 +1,52 @@
 /* Commands Page Styles */
+.commandsPage {
+  min-height: 100vh;
+  position: relative;
+  --dreamy-surface-rgb: 28, 28, 28;
+  --dreamy-accent-rgb: 55, 55, 55;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
 .mainContent {
-  padding: 2rem 0;
+  padding: 8rem 0 2rem 0;
+  margin-top: 0;
 }
 
 .pageHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 1.5rem -1.5rem 0 -1.5rem;
+  align-items: flex-start;
+  margin: 0 0 2rem 0;
+  padding-top: 1rem;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 @media (min-width: 640px) {
   .pageHeader {
-    margin: 1rem 0 0 0;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 2rem 0;
+    padding-top: 1rem;
   }
 }
 
@@ -20,12 +54,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  margin-top: 0;
 }
 
 @media (min-width: 640px) {
   .pageTitle {
-    margin-top: 0.75rem;
+    margin-top: 0;
   }
 }
 
@@ -59,13 +93,15 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   position: relative;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
   .searchSection {
     margin-top: 0;
+    width: auto;
   }
 }
 
@@ -91,8 +127,8 @@
 }
 
 .searchInputWrapper:focus-within {
-  border-color: var(--pastel-pink);
-  box-shadow: 0 0 12px rgba(251, 188, 255, 0.2);
+  border-color: #FFC5D3;
+  box-shadow: 0 0 12px rgba(255, 197, 211, 0.2);
 }
 
 .searchInput {
@@ -134,17 +170,33 @@
 /* Filter Tabs */
 .filterContainer {
   position: relative;
-  margin: 1.5rem -1.5rem 0 -1.5rem;
+  margin: 2rem 0 0 0;
 }
 
 @media (min-width: 640px) {
   .filterContainer {
-    margin: 1.5rem 0 0 0;
+    margin: 2rem 0 0 0;
   }
 }
 
-.filterTabs {
+.filterTabsWrapper {
+  position: relative;
   margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+
+
+.filterTabsContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  width: 100%;
+}
+
+.filterTabs {
   display: flex;
   align-items: center;
   overflow-x: auto;
@@ -155,6 +207,29 @@
   border: 1px solid var(--dreamy-accent);
   padding: 0.25rem;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.filterTabs:active {
+  cursor: grabbing;
+}
+
+.filterTabs.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.filterTabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Remove scroll button padding adjustments */
+
+.filterTabs::-webkit-scrollbar {
+  display: none;
 }
 
 .filterTab {
@@ -231,9 +306,7 @@
 }
 
 .commandCard:hover {
-  box-shadow: 0 4px 16px rgba(251, 188, 255, 0.15);
-  border-color: var(--pastel-pink);
-  transform: translateY(-2px);
+  border-color: rgba(255, 197, 211, 0.3);
 }
 
 .commandHeader {
@@ -255,7 +328,7 @@
 .copyButton {
   background: transparent;
   border: none;
-  color: var(--pastel-pink);
+  color: #FFC5D3;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -268,10 +341,7 @@
 }
 
 .copyButton:hover {
-  color: var(--dreamy-bg);
-  background: var(--pastel-pink);
-  opacity: 1;
-  transform: translateY(-1px);
+  background: rgba(255, 197, 211, 0.1);
 }
 
 /* Economy Commands Emojis */
@@ -445,7 +515,7 @@
 .detailSection h4 {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
-  color: var(--dreamy-primary);
+  color: #FFC5D3;
   font-weight: 500;
   margin-bottom: 0.5rem;
   text-transform: lowercase;
@@ -719,6 +789,24 @@
   .searchSection {
     align-self: stretch;
     justify-content: flex-start;
+  }  /* Mobile filter tabs - no scroll buttons needed */
+  .filterTabsWrapper {
+    gap: 0;
+  }
+
+  .filterTabsContainer {
+    min-width: 0; /* Allow shrinking */
+  }
+
+  .filterTabs {
+    height: 3.5rem;
+  }
+
+  .filterTab {
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    gap: 0.5rem;
+    flex-shrink: 0; /* Prevent tabs from shrinking */
   }
   
   /* Larger touch targets */
@@ -805,6 +893,7 @@
   .searchSection {
     align-self: stretch;
   }
+  /* Filter tabs work with drag scrolling */
   
   .filterTabs {
     overflow-x: auto;
@@ -820,6 +909,8 @@
     flex-shrink: 0;
   }
 }
+
+/* Desktop - drag scrolling enabled */
 
 @keyframes fadeInUp {
   from {
