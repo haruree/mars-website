@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -8,12 +7,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function HomePage() {
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
-
   return (
     <>
       <AnimatedBackground />
