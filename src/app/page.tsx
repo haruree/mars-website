@@ -23,11 +23,10 @@ export default function HomePage() {
               </div>
               <h1 className="hero-title">
                 Let <span className="hero-brand">Mars</span><span className="sparkle">✨</span> handle it for you!
-              </h1>
-              <p className="hero-description">
-                The discord.js meta-framework for building powerful, modular, and extensible 
-                Discord bots with ease.
-              </p>              <div className="hero-buttons">
+              </h1>              <p className="hero-description">
+                Your magical Discord companion bringing AI-powered conversations, fun interactions, 
+                and dreamy experiences to your server~
+              </p><div className="hero-buttons">
                 <Link 
                   href="https://discord.com/oauth2/authorize?client_id=714301751855153174&permissions=8&integration_type=0&scope=bot" 
                   target="_blank"
